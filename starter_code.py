@@ -82,7 +82,7 @@ def process_file(file):
                 tunes.append(current_tune)
                 
             #new tune present 
-            current_tune = {"X:": line[2:].strip(),"body":""}
+            current_tune = {"X": line[2:].strip(),"body":""}
             print(line)  
                 
         elif line.startswith("T:"):
@@ -147,13 +147,27 @@ def ctdb():
     return conn
 
 def load_tunes_from_database():
+    #variable conn holds the function ctdb
     conn = ctdb()
+    #selecting all columns from tunes
     query = "SELECT * FROM tunes"
+    #creating a data from 
     df = pd.read_sql(query, conn)
     conn.close()
     
     return df
 
+#df holds the function above
 df = load_tunes_from_database()
 
+#displays the values of each book file
 print(df["book_number"].value_counts())
+
+def get_tunes_by_book(df, book_number):
+    """Get all tunes from a specific book"""
+    df = df[df["book_number"] ==  book_number]
+    return df
+
+
+book2_t = get_tunes_by_book(df, book_number)
+print(book2_t["title","key"].head())
