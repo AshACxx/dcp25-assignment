@@ -1,3 +1,5 @@
+#IMPORTANT, I HAD TO DELETE MY REPO AND RETSART EVERYTHING, LOTS OF PROGRESS MAY BE MADE IN A SHORT TIME
+
 # Starter code for Data Centric Programming Assignment 2025
 
 # os is a module that lets us access the file system
@@ -100,4 +102,3 @@ for item in os.listdir(books_dir):
                 print(f"  Found abc file: {file}")
                 process_file(file_path)
                 
-adsasd
