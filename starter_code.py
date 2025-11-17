@@ -15,6 +15,7 @@ import pandas as pd
 
 # An example of how to create a table, insert data
 # and run a select query
+'''
 def do_databasse_stuff():
 
     conn = sqlite3.connect('tunes.db')
@@ -44,10 +45,15 @@ def do_databasse_stuff():
     df = pd.read_sql("SELECT * FROM users", conn)
     print(df.head())
     conn.close()
-
+'''
 def my_sql_database():
     conn = sqlite3.connect("tunes.db")
-    
+    conn = conn = sqlite3.connect('tunes.db')
+    cursor = conn.cursor()
+
+    cursor.execute("DELETE FROM tunes")
+    conn.commit()
+    conn.close()
     
     
 
@@ -125,7 +131,7 @@ for item in os.listdir(books_dir):
     
     # Check if it's a directory and has a numeric name
     if os.path.isdir(item_path) and item.isdigit():
-        book_neumber = int(item)
+        book_number = int(item)
         print(f"Found numbered directory: {item}")
         
         # Iterate over files in the numbered directory
@@ -136,3 +142,18 @@ for item in os.listdir(books_dir):
                 print(f"  Found abc file: {file}")
                 process(file_path,book_number)
                 
+def ctdb():
+    conn = sqlite3.connect('tunes.db')
+    return conn
+
+def load_tunes_from_database():
+    conn = ctdb()
+    query = "SELECT * FROM tunes"
+    df = pd.read_sql(query, conn)
+    conn.close()
+    
+    return df
+
+df = load_tunes_from_database()
+
+print(df["book_number"].value_counts())
