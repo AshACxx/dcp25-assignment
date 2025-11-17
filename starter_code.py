@@ -46,26 +46,9 @@ def do_databasse_stuff():
     conn.close()
 
 def my_sql_database():
-    conn = sqlite3.connect(tunes.db)
-    
-    cursor = conn.cursor()
-    cursor.execute("select * from tuneindex")
+    conn = sqlite3.connect("tunes.db")
     
     
-    while True:
-        row = cursor.fetchone()
-        if not row:
-            break
-        else:
-            print(row)
-    # results = cursor.fetchall()
-    
-    
-
-    # Print results
-    for row in results:
-        print(row)    
-    conn.close()
     
 
 books_dir = "abc_books"
@@ -98,7 +81,7 @@ def process_file(file):
                 
         elif line.startswith("T:"):
             current_tune["title"] = line[2:].strip()
-            print(line)  
+            
         elif line.startswith("K:"):
             current_tune["key"] = line[2:].strip()
             
@@ -114,8 +97,24 @@ def process_file(file):
     return tunes
 
 
+def inserting(book_number,tunes):
+    conn = sqlite3.connect("tunes.db")
+    cursor = conn.cursor()
+    
+    cursor.execute('CREATE TABLE IF NOT EXISTS tunes (id INTEGER PRIMARY KEY AUTOINCREMENT, book_number INTEGER, title TEXT, key TEXT, body TEXT)')
+    
+    for tune in tunes:
+        cursor.execute('INSERT INTO tunes(book_number,title,key, body) VALUES (?,?,?,?)',(book_number,tune.get("title", ""),tune.get("key", ""),tune.get("body", "")))
 
-# my_sql_database()
+    conn.commit()
+    conn.close()
+
+def process(file, book_number):
+    tunes = process_file(file)
+    inserting(book_number, tunes)
+
+
+my_sql_database()
 # do_databasse_stuff()
 
 # Iterate over directories in abc_books
@@ -133,5 +132,5 @@ for item in os.listdir(books_dir):
             if file.endswith('.abc'):
                 file_path = os.path.join(item_path, file)
                 print(f"  Found abc file: {file}")
-                process_file(file_path)
+                process(file_path, book_number)
                 
