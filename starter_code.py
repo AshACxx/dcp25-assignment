@@ -170,4 +170,4 @@ def get_tunes_by_book(df, book_number):
 
 
 book2_t = get_tunes_by_book(df, book_number)
-print(book2_t["title","key"].head())
+print(book2_t[["title","key"]].head())
