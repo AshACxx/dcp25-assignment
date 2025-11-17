@@ -10,7 +10,7 @@
 import os 
 import sqlite3
 import pandas as pd
-import mysql.connector
+
 # sqlite for connecting to sqlite databases
 
 # An example of how to create a table, insert data
@@ -46,7 +46,7 @@ def do_databasse_stuff():
     conn.close()
 
 def my_sql_database():
-    conn = mysql.connector.connect(host="localhost", user="root", database="tunepal")
+    conn = sqlite3.connect(tunes.db)
     
     cursor = conn.cursor()
     cursor.execute("select * from tuneindex")
@@ -70,7 +70,13 @@ def my_sql_database():
 
 books_dir = "abc_books"
 
+
+
 def process_file(file):
+    
+    tunes = []
+    current_tune = {}
+    
     with open(file, 'r') as f:
         lines = f.readlines()
     # list comprehension to strip the \n's
@@ -78,8 +84,35 @@ def process_file(file):
 
     # just print the files for now
     for line in lines:
-        # print(line)
-        pass
+        
+        
+        #if the line starts with X, we are on a tune
+        if line.startswith("X:"):
+            #saving previous tune 
+            if current_tune:
+                tunes.append(current_tune)
+                
+            #new tune present 
+            current_tune = {"X:": line[2:].strip(),"body":""}
+            print(line)  
+                
+        elif line.startswith("T:"):
+            current_tune["title"] = line[2:].strip()
+            print(line)  
+        elif line.startswith("K:"):
+            current_tune["key"] = line[2:].strip()
+            
+        
+        else:
+            if current_tune:
+                current_tune["body"] += line + "\n"
+                
+                
+    if current_tune:
+        tunes.append(current_tune)
+        
+    return tunes
+
 
 
 # my_sql_database()
