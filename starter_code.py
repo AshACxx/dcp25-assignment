@@ -104,6 +104,7 @@ def inserting(book_number,tunes):
     cursor.execute('CREATE TABLE IF NOT EXISTS tunes (id INTEGER PRIMARY KEY AUTOINCREMENT, book_number INTEGER, title TEXT, key TEXT, body TEXT)')
     
     for tune in tunes:
+        
         cursor.execute('INSERT INTO tunes(book_number,title,key, body) VALUES (?,?,?,?)',(book_number,tune.get("title", ""),tune.get("key", ""),tune.get("body", "")))
 
     conn.commit()
@@ -124,6 +125,7 @@ for item in os.listdir(books_dir):
     
     # Check if it's a directory and has a numeric name
     if os.path.isdir(item_path) and item.isdigit():
+        book_neumber = int(item)
         print(f"Found numbered directory: {item}")
         
         # Iterate over files in the numbered directory
@@ -132,5 +134,5 @@ for item in os.listdir(books_dir):
             if file.endswith('.abc'):
                 file_path = os.path.join(item_path, file)
                 print(f"  Found abc file: {file}")
-                process(file_path, book_number)
+                process(file_path,book_number)
                 
