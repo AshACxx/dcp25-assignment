@@ -4,9 +4,6 @@
 
 # os is a module that lets us access the file system
 
-# Bryan Duggan likes Star Trek
-# Bryan Duggan is a great flute player
-
 import os 
 import sqlite3
 import pandas as pd
@@ -48,7 +45,7 @@ def do_databasse_stuff():
 '''
 def my_sql_database():
     conn = sqlite3.connect("tunes.db")
-    conn = conn = sqlite3.connect('tunes.db')
+
     cursor = conn.cursor()
 
     cursor.execute("DELETE FROM tunes")
@@ -63,7 +60,7 @@ books_dir = "abc_books"
 
 def process_file(file):
     
-    tunes = []
+    tunes = [] #1
     current_tune = {}
     
     with open(file, 'r') as f:
@@ -91,7 +88,10 @@ def process_file(file):
         elif line.startswith("K:"):
             current_tune["key"] = line[2:].strip()
             
-        
+        elif line.startswith("R:"):
+            current_tune["type"] = line[2:].strip()
+            
+        #current_tune["body"] taking "body from the dictionary and adding the lines that dont have x t or k
         else:
             if current_tune:
                 current_tune["body"] += line + "\n"
@@ -100,18 +100,18 @@ def process_file(file):
     if current_tune:
         tunes.append(current_tune)
         
-    return tunes
+    return tunes #returns to #1
 
 
 def inserting(book_number,tunes):
     conn = sqlite3.connect("tunes.db")
     cursor = conn.cursor()
     
-    cursor.execute('CREATE TABLE IF NOT EXISTS tunes (id INTEGER PRIMARY KEY AUTOINCREMENT, book_number INTEGER, title TEXT, key TEXT, body TEXT)')
+    cursor.execute('CREATE TABLE IF NOT EXISTS tunes (id INTEGER PRIMARY KEY AUTOINCREMENT, book_number INTEGER, title TEXT, key TEXT, type TEXT, body TEXT)')
     
-    for tune in tunes:
+    for tune in tunes: #1 is used to insert the data into a table
         
-        cursor.execute('INSERT INTO tunes(book_number,title,key, body) VALUES (?,?,?,?)',(book_number,tune.get("title", ""),tune.get("key", ""),tune.get("body", "")))
+        cursor.execute('INSERT INTO tunes(book_number,title,key,type, body) VALUES (?,?,?,?,?)',(book_number,tune.get("title", ""),tune.get("key", ""),tune.get("type", ""),tune.get("body", "")))
 
     conn.commit()
     conn.close()
@@ -168,6 +168,7 @@ def get_tunes_by_book(df, book_number):
     df = df[df["book_number"] ==  book_number]
     return df
 
-
-book2_t = get_tunes_by_book(df, book_number)
+#displays all the tunes from 3329 onwards as this is book2 (abc files)
+book2_t = get_tunes_by_book(df, 2)
 print(book2_t[["title","key"]].head())
+
