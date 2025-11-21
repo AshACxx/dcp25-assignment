@@ -4,6 +4,9 @@
 
 # os is a module that lets us access the file system
 
+# Bryan Duggan likes Star Trek
+# Bryan Duggan is a great flute player
+
 import os 
 import sqlite3
 import pandas as pd
@@ -44,11 +47,11 @@ def do_databasse_stuff():
     conn.close()
 '''
 def my_sql_database():
-    conn = sqlite3.connect("tunes.db")
+    conn = sqlite3.connect("tunes2.db")
 
     cursor = conn.cursor()
 
-    cursor.execute("DELETE FROM tunes")
+    cursor.execute("DROP TABLE IF EXISTS tunes2")
     conn.commit()
     conn.close()
     
@@ -93,8 +96,9 @@ def process_file(file):
             
         #current_tune["body"] taking "body from the dictionary and adding the lines that dont have x t or k
         else:
-            if current_tune:
-                current_tune["body"] += line + "\n"
+            if "body" not in current_tune:
+                current_tune["body"] = ""
+            current_tune["body"] += line + "\n"
                 
                 
     if current_tune:
@@ -104,15 +108,14 @@ def process_file(file):
 
 
 def inserting(book_number,tunes):
-    conn = sqlite3.connect("tunes.db")
+    conn = sqlite3.connect("tunes2.db")
     cursor = conn.cursor()
     
-    cursor.execute('CREATE TABLE IF NOT EXISTS tunes (id INTEGER PRIMARY KEY AUTOINCREMENT, book_number INTEGER, title TEXT, key TEXT, type TEXT, body TEXT)')
+    cursor.execute('CREATE TABLE IF NOT EXISTS tunes2 (id INTEGER PRIMARY KEY AUTOINCREMENT, book_number INTEGER, title TEXT, key TEXT, type TEXT, body TEXT)')
     
     for tune in tunes: #1 is used to insert the data into a table
         
-        cursor.execute('INSERT INTO tunes(book_number,title,key,type, body) VALUES (?,?,?,?,?)',(book_number,tune.get("title", ""),tune.get("key", ""),tune.get("type", ""),tune.get("body", "")))
-
+        cursor.execute('INSERT INTO tunes2(book_number,title,key,type,body) VALUES (?,?,?,?,?)',(book_number,tune.get("title", ""),tune.get("key", ""),tune.get("type", ""),tune.get("body", "")))
     conn.commit()
     conn.close()
 
@@ -143,14 +146,14 @@ for item in os.listdir(books_dir):
                 process(file_path,book_number)
                 
 def ctdb():
-    conn = sqlite3.connect('tunes.db')
+    conn = sqlite3.connect('tunes2.db')
     return conn
 
 def load_tunes_from_database():
     #variable conn holds the function ctdb
     conn = ctdb()
     #selecting all columns from tunes
-    query = "SELECT * FROM tunes"
+    query = "SELECT * FROM tunes2"
     #creating a data from 
     df = pd.read_sql(query, conn)
     conn.close()
@@ -169,6 +172,12 @@ def get_tunes_by_book(df, book_number):
     return df
 
 #displays all the tunes from 3329 onwards as this is book2 (abc files)
-book2_t = get_tunes_by_book(df, 2)
+book2_t = get_tunes_by_book(df, book_number)
 print(book2_t[["title","key"]].head())
 
+def get_tune(df, tune_type):
+    df_2 = df[df["type"]==tune_type]
+    return df_2
+
+book3_t = get_tune(df, "Single jig")
+print(book3_t[["title","type"]].head())
