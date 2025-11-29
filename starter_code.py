@@ -10,6 +10,8 @@
 import os 
 import sqlite3
 import pandas as pd
+import tkinter as tk
+from tkinter import scrolledtext
 
 # sqlite for connecting to sqlite databases
 
@@ -47,6 +49,17 @@ def do_databasse_stuff():
     conn.close()
 '''
 def my_sql_database():
+    ''' 
+    old code 
+    conn = sqlite3.connect("tunes2.db")
+
+    cursor = conn.cursor()
+
+    cursor.execute("DROP TABLE IF EXISTS tunes2")
+    conn.commit()
+    conn.close()
+    '''
+    #improvement recc by ai 
     conn = sqlite3.connect("tunes2.db")
 
     cursor = conn.cursor()
@@ -126,7 +139,7 @@ def process(file, book_number):
 
 
 my_sql_database()
-# do_databasse_stuff()
+
 
 # Iterate over directories in abc_books
 for item in os.listdir(books_dir):
@@ -172,13 +185,23 @@ def get_tunes_by_book(df, book_number):
     df = df[df["book_number"] ==  book_number]
     return df
 
-#displays all the tunes from 3329 onwards as this is book2 (abc files)
-book2_t = get_tunes_by_book(df, book_number)
-print(book2_t[["title","key"]].head())
+#displays all the tunes from 3400 onwards as this is book2 (abc files)
 
 def get_tune(df, tune_type):
     df_2 = df[df["type"]==tune_type]
     return df_2
 
-book3_t = get_tune(df, "Single jig")
-print(book3_t[["title","type"]].head())
+def search(df, search_terms):
+    df_3 = df[df["title"].str.contains(search_terms, case = False)]
+    return df_3
+
+#tkinter menu
+def launch_gui(df):
+    window = tk.Tk()
+    window.title("ABC Tune Database")
+    window.geometry("750x600")
+
+    output = scrolledtext.ScrolledText(window, width=90, height=25)
+    output.pack(pady=10)
+
+
