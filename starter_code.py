@@ -197,11 +197,12 @@ def search(df, search_terms):
 
 #tkinter menu
 def launch_gui(df):
-    window = tk.Tk()
-    window.title("ABC Tune Database")
-    window.geometry("750x600")
+    #main window
+    my_w = tk.Tk()
+    my_w.title("ABC Tune Database")
+    my_w.geometry("750x600")
 
-    output = scrolledtext.ScrolledText(window, width=90, height=25)
+    output = scrolledtext.ScrolledText(my_w, width=90, height=25)
     output.pack(pady=10)
 
 
