@@ -28,6 +28,7 @@ First we import our libraries
 1. Establish connection to our database tunes2.db that will be used to store our table
 if the already exists, it gets dropped
 
+
 2. We parse through the data, i created a list called "tunes" and a dictionary called "current_tunes" that will be used to store each tune
 	i open the the file and read it, using .readlines() and store it in a variable called lines, lines is then used within the for loop to iterate through the tunes contents.
 	I filter out 4 main keys 
@@ -38,6 +39,56 @@ if the already exists, it gets dropped
 The loop firstly checks if the line begins with x, if not it saves the current tune its working on and stores it into the list "tunes".
 The loop also removes any whitespaces and trailing lines from the keys.
 Body is used to take the remainder of the information within each tune and store it in "body" after the main keys are finished being parsed
+```Python
+def process_file(file):
+    
+    tunes = [] #1
+    current_tune = {}
+    
+    with open(file, 'r') as f:
+        lines = f.readlines()
+    # list comprehension to strip the \n's
+    lines = [line.strip() for line in lines]
+
+    # just print the files for now
+    for line in lines:
+        
+        
+        #if the line starts with X, we are on a tune
+        if line.startswith("X:"):
+            #saving previous tune 
+            if current_tune:
+                tunes.append(current_tune)
+                
+            #new tune present 
+            current_tune = {"X": line[2:].strip(),"body":""}
+            print(line)  
+                
+        elif line.startswith("T:"):
+            current_tune["title"] = line[2:].strip()
+            
+        elif line.startswith("K:"):
+            current_tune["key"] = line[2:].strip()
+            
+        elif line.startswith("R:"):
+            current_tune["type"] = line[2:].strip()
+            
+        #current_tune["body"] taking "body from the dictionary and adding the lines that dont have x t k or r
+        else:
+            
+            
+            if "body" not in current_tune:
+                #making body a key
+                current_tune["body"] = ""
+                #adding on body to a new line
+            current_tune["body"] += line + "\n"
+                
+                
+    if current_tune:
+        tunes.append(current_tune)
+        
+    return tunes #returns to #1
+```
 
 3. I create a table if it doesnt already exist with the columns
 - book_number INTEGER 
@@ -47,6 +98,24 @@ Body is used to take the remainder of the information within each tune and store
 - body TEXT
 
 The data previously sstored in "tunes" is then used in a for loop to insert the data into each column
+
+```Python
+def inserting(book_number,tunes):
+    conn = sqlite3.connect("tunes2.db")
+    cursor = conn.cursor()
+    
+    cursor.execute('CREATE TABLE IF NOT EXISTS tunes2 (id INTEGER PRIMARY KEY AUTOINCREMENT, book_number INTEGER, title TEXT, key TEXT, type TEXT, body TEXT)')
+    
+    for tune in tunes: #1 is used to insert the data into a table
+        
+        cursor.execute('INSERT INTO tunes2(book_number,title,key,type,body) VALUES (?,?,?,?,?)',(book_number,tune.get("title", ""),tune.get("key", ""),tune.get("type", ""),tune.get("body", "")))
+    conn.commit()
+    conn.close()
+
+def process(file, book_number):
+    tunes = process_file(file)
+    inserting(book_number, tunes)
+```
 
 4. Defining a function that takes file and book_number as parameters
 - tunes stores the function process_file(file)
