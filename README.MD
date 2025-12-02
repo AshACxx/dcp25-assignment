@@ -9,10 +9,35 @@ Student Number: C24385641
 # Screenshots
 
 # Description of the project
+Program designed to read 2 folders containing ABC files representing different books
+The program parses and stores the tunes in a dictionary which is saved in a list
+A database is used to store a table that takes the contents of each tunes.
+Pandas is used for analysis of the data and 
+We can access this data using a GUI
 
 # Instructions for use
-
+Run the program
+A window will be opened with the 3 boxes that will let u search by:
+Book number
+Title
+Jig
+Input into the search bar which books youd like to look up 
 # How it works:
+First we import our libraries
+
+1. Establish connection to our database tunes2.db that will be used to store our table
+if the already exists, it gets dropped
+
+2. We parse through the data, i created a list called "tunes" and a dictionary called "current_tunes" that will be used to store each tune
+	i open the the file and read it, using .readlines() and store it in a variable called lines, lines is then used within the for loop to iterate through the tunes contents.
+	I filter out 4 main keys 
+	X: tune number
+	T: title
+	K: key
+	R: type (jig)
+	The loop firstly checks if the line begins with x, if not it saves the current tune its working on and stores it into the list "tunes".
+	The loop also removes any whitespaces and trailing lines from the keys.
+	Body is used to take the remainder of the information within each tune and store it in "body" after the main keys are finished being parsed
 
 # List of files in the project
 
