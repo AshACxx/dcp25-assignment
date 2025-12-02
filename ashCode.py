@@ -184,6 +184,14 @@ plt.show()
 
 
 type_counts =  df["type"].value_counts()
+plt.figure(figsize=(8,5))
+plt.bar(type_counts.index, type_counts.values)
+plt.xlabel("Tune Type")
+plt.ylabel("Count")
+plt.title("Distribution of Tune Types")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
 
 
 
