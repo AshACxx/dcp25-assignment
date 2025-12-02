@@ -167,6 +167,27 @@ def search(df, search_terms):
 book3_t = get_tune(df, "Single jig")
 print(book3_t[["title","type"]].head())
 
+
+
+
+
+#count tunes per book
+book_counts = df["book_number"].value_counts().sort_index()
+
+plt.figure(figsize=(8,5))
+plt.bar(book_counts.index, book_counts.values)
+plt.xlabel("Book Number")
+plt.ylabel("Number of Tunes")
+plt.title("Tunes per Book")
+plt.tight_layout()
+plt.show()
+
+
+type_counts =  df["type"].value_counts()
+
+
+
+
 #tkinter menu
 def launch_gui(df):
     
