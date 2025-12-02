@@ -126,6 +126,23 @@ ctdb() is used to return the connection query  is used to get every row from the
 - load_tunes_from_database() holds all of this
 - df is created to take in the connection and query and is read into pandas using p.read_sql
 
+```Python
+def ctdb():
+    conn = sqlite3.connect('tunes2.db')
+    return conn
+
+def load_tunes_from_database():
+    #variable conn holds the function ctdb
+    conn = ctdb()
+    #selecting all columns from tunes
+    query = "SELECT * FROM tunes2"
+    #creating a data from 
+    df = pd.read_sql(query, conn)
+    conn.close()
+    
+    return df
+```
+
 6. df is used to store the function load_tunes_from_database()
 
 7. 3 pandas functions are created,
@@ -138,10 +155,6 @@ def get_tunes_by_book(df, book_number):
 #displays all the tunes from 3400 onwards as this is book2 (abc files)
 
 def get_tune(df, tune_type):
-    df_2 = df[df["type"]==tune_type]
-    return df_2
-
-	def get_tune(df, tune_type):
     df_2 = df[df["type"]==tune_type]
     return df_2
 
