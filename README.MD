@@ -2,9 +2,9 @@
 
 - [Assignment Brief](assignment.md)
 
-Name:
+Name: Arshdip Chera
 
-Student Number: 
+Student Number: C24385641
 
 # Screenshots
 
@@ -18,9 +18,8 @@ Student Number:
 
 | Files | Source |
 |-----------|-----------|
-| main.py | Self written |
-| test.py | Modified from [reference]() |
-| test.py | From [reference]() |
+| ashCode.py | Self written |
+
 
 # References
 * Item 1
