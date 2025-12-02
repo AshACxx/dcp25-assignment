@@ -35,9 +35,9 @@ if the already exists, it gets dropped
 	- T: title
 	- K: key
 	- R: type (jig)
-	The loop firstly checks if the line begins with x, if not it saves the current tune its working on and stores it into the list "tunes".
-	The loop also removes any whitespaces and trailing lines from the keys.
-	Body is used to take the remainder of the information within each tune and store it in "body" after the main keys are finished being parsed
+The loop firstly checks if the line begins with x, if not it saves the current tune its working on and stores it into the list "tunes".
+The loop also removes any whitespaces and trailing lines from the keys.
+Body is used to take the remainder of the information within each tune and store it in "body" after the main keys are finished being parsed
 
 3. I create a table if it doesnt already exist with the columns
 - book_number INTEGER 
@@ -45,11 +45,51 @@ if the already exists, it gets dropped
 - key TEXT, 
 - type TEXT, 
 - body TEXT
+
 The data previously sstored in "tunes" is then used in a for loop to insert the data into each column
 
 4. Defining a function that takes file and book_number as parameters
 - tunes stores the function process_file(file)
 - tunes is then used to insert the tunes in the databasse
+
+5. i call the function my_sql_database to drop the table each time the program is ran to avoid duplicate entries and errors (this is just trouble shooting)
+ctdb() is used to return the connection query  is used to get every row from the table.
+- load_tunes_from_database() holds all of this
+- df is created to take in the connection and query and is read into pandas using p.read_sql
+
+6. df is used to store the function load_tunes_from_database()
+
+7. 3 pandas functions are created,
+```Python
+def get_tunes_by_book(df, book_number):
+    """Get all tunes from a specific book"""
+    df = df[df["book_number"] ==  book_number]
+    return df
+
+#displays all the tunes from 3400 onwards as this is book2 (abc files)
+
+def get_tune(df, tune_type):
+    df_2 = df[df["type"]==tune_type]
+    return df_2
+
+	def get_tune(df, tune_type):
+    df_2 = df[df["type"]==tune_type]
+    return df_2
+
+#printing the title and key
+book2_t = get_tunes_by_book(df, 2)
+print(book2_t[["title","key"]].head())
+
+
+#function to return the title of a song
+def search(df, search_terms):
+    df_3 = df[df["title"].str.contains(search_terms, case = False)]
+    return df_3
+#returning rthe title andd jig of a song
+
+book3_t = get_tune(df, "Single jig")
+print(book3_t[["title","type"]].head())
+```
 # List of files in the project
 
 | Files | Source |
