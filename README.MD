@@ -148,7 +148,17 @@ def load_tunes_from_database():
 
 6. df is used to store the function load_tunes_from_database()
 
-7. 3 pandas functions are created,
+7. 3 pandas functions are created to load the tune ddata from the datatbase into the pandas df and provide filtering
+
+-get_tunes_by_book(df, book_number)
+Returns all tunes from a specific book number.
+
+-get_tune(df, tune_type)
+Returns all tunes that match a given tune type (e.g., "Single jig").
+
+-search(df, search_terms)
+Searches for tunes whose titles contain a given keyword (case-insensitive).
+
 ```Python
 def get_tunes_by_book(df, book_number):
     """Get all tunes from a specific book"""
