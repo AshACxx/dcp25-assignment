@@ -191,9 +191,15 @@ def get_tune(df, tune_type):
     df_2 = df[df["type"]==tune_type]
     return df_2
 
+book2_t = get_tunes_by_book(df, 2)
+print(book2_t[["title","key"]].head())
+
 def search(df, search_terms):
     df_3 = df[df["title"].str.contains(search_terms, case = False)]
     return df_3
+
+book3_t = get_tune(df, "Single jig")
+print(book3_t[["title","type"]].head())
 
 #tkinter menu
 def launch_gui(df):
@@ -205,4 +211,26 @@ def launch_gui(df):
     output = scrolledtext.ScrolledText(my_w, width=90, height=25)
     output.pack(pady=10)
 
-
+    def show(df):
+        #clears text box
+        output.delete(1.0, tk.END)
+        
+        if df.empty:
+            #if the df has no rows/ data it displays no
+            output.insert(tk.END, "No results found.\n")
+            #returning no result to df
+            return
+        
+        for i, row in df.iterrows():
+            #outputting (printing) the rows in the main window
+            output.insert(tk.END, f"Title: {row['title']}\n")
+            
+            output.insert(tk.END, f"Type: {row['type']}\n")
+            
+            output.insert(tk.END, f"Key: {row['key']}\n")
+            
+            output.insert(tk.END, f"Book: {row['book_number']}\n")
+            
+            #adding lines to seperate 
+            output.insert(tk.END, "-"*50 + "\n")
+    
