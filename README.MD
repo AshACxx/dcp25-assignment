@@ -112,14 +112,17 @@ def inserting(book_number,tunes):
     conn.commit()
     conn.close()
 
-def process(file, book_number):
-    tunes = process_file(file)
-    inserting(book_number, tunes)
 ```
 
 4. Defining a function that takes file and book_number as parameters
 - tunes stores the function process_file(file)
 - tunes is then used to insert the tunes in the databasse
+
+```Python
+def process(file, book_number):
+    tunes = process_file(file)
+    inserting(book_number, tunes)
+```
 
 5. i call the function my_sql_database to drop the table each time the program is ran to avoid duplicate entries and errors (this is just trouble shooting)
 ctdb() is used to return the connection query  is used to get every row from the table.
