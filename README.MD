@@ -193,16 +193,17 @@ print(book3_t[["title","type"]].head())
 
 
 # References
-* Item 1
-* Item 2
+* [hyperlink](https://youtu.be/w5JhFN0CwOE?si=ioK0tFfDjpQGgBNd)
+* [hyperlink](https://youtu.be/w5JhFN0CwOE?si=1R1h7kVcAqZKhuoi)
+* [hyperlink](https://www.codecademy.com)
 
 # What I am most proud of in the assignment
 
-Bla bla bla
+The thing im most proud of in this assignment are the parsing and pandas parts. For the parsing of the contents i looked back on old python files and labs i had used before, on top of this i used the skills i have been getting frok codecademys Python 2 course and pandas course available on the website. Im proud that i could apply my knowledge and quickly get past these parts with little use of ai assistance or youtube tutorials.
 
 # What I learned
 
-Bla bla bla
+What i learned in this assignment is the connection of a database in which i created the table and columns using python. At first i struggled with this part alot as i struggled with this in php, howeever after emailing my lecturer i was able to find the resources available to connect my file data to a sql table.
 
 ## Below is how to use Markdown. You can delete this:
 
