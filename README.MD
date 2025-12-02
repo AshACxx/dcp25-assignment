@@ -193,9 +193,9 @@ print(book3_t[["title","type"]].head())
 
 
 # References
-* [hyperlink](https://youtu.be/w5JhFN0CwOE?si=ioK0tFfDjpQGgBNd)
-* [hyperlink](https://youtu.be/w5JhFN0CwOE?si=1R1h7kVcAqZKhuoi)
-* [hyperlink](https://www.codecademy.com)
+* tkinter tutorial #1[hyperlink](https://youtu.be/w5JhFN0CwOE?si=ioK0tFfDjpQGgBNd)
+* tkinter tutorial #2[hyperlink](https://youtu.be/w5JhFN0CwOE?si=1R1h7kVcAqZKhuoi)
+* Codecademy [hyperlink](https://www.codecademy.com)
 
 # What I am most proud of in the assignment
 

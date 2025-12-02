@@ -4,6 +4,7 @@ import sqlite3
 import pandas as pd
 import tkinter as tk
 from tkinter import scrolledtext
+import matplotlib.pyplot as plt
 
 def my_sql_database():
     ''' 
