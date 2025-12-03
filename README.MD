@@ -198,7 +198,7 @@ def get_tunes_by_book(df, book_number):
 #displays all the tunes from 3400 onwards as this is book2 (abc files)
 
 def get_tune(df, tune_type):
-    df_2 = df[df["type"]==tune_type]
+    df_2 = df[df["type"].str.lower() == tune_type.lower()]
     return df_2
 
 #printing the title and key
@@ -215,6 +215,38 @@ def search(df, search_terms):
 book3_t = get_tune(df, "Single jig")
 print(book3_t[["title","type"]].head())
 ```
+
+
+
+#### Matplot
+- Created 2 graphs for further data analysis
+- Graph 1: Shows number of tunes per book
+- Graph 2; Shows the distribution of tune type and counts them
+```Python
+book_counts = df["book_number"].value_counts().sort_index()
+
+plt.figure(figsize=(8,5))
+plt.bar(book_counts.index, book_counts.values)
+plt.xlabel("Book Number")
+plt.ylabel("Number of Tunes")
+plt.title("Tunes per Book")
+plt.tight_layout()
+plt.show()
+
+
+type_counts =  df["type"].value_counts()
+plt.figure(figsize=(8,5))
+plt.bar(type_counts.index, type_counts.values)
+plt.xlabel("Tune Type")
+plt.ylabel("Count")
+plt.title("Distribution of Tune Types")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+```
+
+
 # List of files in the project
 
 | Files | Source |

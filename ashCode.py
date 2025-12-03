@@ -150,7 +150,7 @@ def get_tunes_by_book(df, book_number):
 #displays all the tunes from 3400 onwards as this is book2 (abc files)
 
 def get_tune(df, tune_type):
-    df_2 = df[df["type"]==tune_type]
+    df_2 = df[df["type"].str.lower() == tune_type.lower()]
     return df_2
 
 #printing the title and key
