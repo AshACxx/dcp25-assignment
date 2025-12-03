@@ -152,10 +152,12 @@ def process(file, book_number):
     inserting(book_number, tunes)
 ```
 
-5. i call the function my_sql_database to drop the table each time the program is ran to avoid duplicate entries and errors (this is just trouble shooting)
-ctdb() is used to return the connection query  is used to get every row from the table.
-- load_tunes_from_database() holds all of this
-- df is created to take in the connection and query and is read into pandas using p.read_sql
+5. 
+#### DB connection ctdb
+- ctdb() is as short function that creates another conenction to the database tunes2.db
+
+#### Loading tunes into the dataframe
+- load_tunes_from_database() fetches the stored tunes and returns them as a pandas df for easy viewing, filtering and analysis
 
 ```Python
 def ctdb():
@@ -224,7 +226,7 @@ print(book3_t[["title","type"]].head())
 * tkinter tutorial #1[hyperlink](https://youtu.be/w5JhFN0CwOE?si=ioK0tFfDjpQGgBNd)
 * tkinter tutorial #2[hyperlink](https://youtu.be/w5JhFN0CwOE?si=1R1h7kVcAqZKhuoi)
 * Codecademy [hyperlink](https://www.codecademy.com)
-
+* Lab5 DCP (parsing)
 # What I am most proud of in the assignment
 
 The thing im most proud of in this assignment are the parsing and pandas parts. For the parsing of the contents i looked back on old python files and labs i had used before, on top of this i used the skills i have been getting frok codecademys Python 2 course and pandas course available on the website. Im proud that i could apply my knowledge and quickly get past these parts with little use of ai assistance or youtube tutorials.

@@ -90,7 +90,7 @@ def inserting(book_number,tunes):
     cursor.execute('CREATE TABLE IF NOT EXISTS tunes2 (id INTEGER PRIMARY KEY AUTOINCREMENT, book_number INTEGER, title TEXT, key TEXT, type TEXT, body TEXT)')
     
     for tune in tunes: #1 is used to insert the data into a table
-        
+        #cursor lets u run sql commands
         cursor.execute('INSERT INTO tunes2(book_number,title,key,type,body) VALUES (?,?,?,?,?)',(book_number,tune.get("title", ""),tune.get("key", ""),tune.get("type", ""),tune.get("body", "")))
     conn.commit()
     conn.close()
@@ -150,7 +150,6 @@ def get_tunes_by_book(df, book_number):
 #displays all the tunes from 3400 onwards as this is book2 (abc files)
 
 def get_tune(df, tune_type):
-    tune_type = tune_type.lower
     df_2 = df[df["type"]==tune_type]
     return df_2
 
@@ -161,11 +160,11 @@ print(book2_t[["title","key"]].head())
 
 #function to return the title of a song
 def search(df, search_terms):
-    df_3 = df[df["title"].str.contains(search_terms, case = False)]
+    df_3 = df[df["type"].str.contains(search_terms, case = False)]
     return df_3
-#returning rthe title andd jig of a song
 
-book3_t = get_tune(df, "Single jig")
+#returning rthe title andd jig of a song
+book3_t = search(df, "Single jig")
 print(book3_t[["title","type"]].head())
 
 
@@ -203,17 +202,19 @@ def launch_gui(df):
     #main window
     my_w = tk.Tk()
     my_w.title("ABC Tune Database")
+    
     my_w.geometry("750x600")
-
+    #adding a text and scroll widget to the main box (my_W) -> acts as the root
     output = scrolledtext.ScrolledText(my_w, width=90, height=25)
+    #pady is padding for the main window, moves it away from the top of the titlebar
     output.pack(pady=10)
 
     def show(df):
-        #clears text box
+        #clears text box (1.0 is line1 char 0 tk.END _> to the end)
         output.delete(1.0, tk.END)
         
         if df.empty:
-            #if the df has no rows/ data it displays no
+            #if the df has no rows/ data it displays no (#note for future tk.END is used to place no results at the end of widget)
             output.insert(tk.END, "No results found.\n")
             #returning no result to df
             return
@@ -262,5 +263,5 @@ def launch_gui(df):
     my_w.mainloop()
 
 
-# REPLACE TEXT UI WITH TKINTER
+
 launch_gui(df)
