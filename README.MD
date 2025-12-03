@@ -40,6 +40,16 @@ if the already exists, it gets dropped
 - T: Title
 - K: Key signature
 - R: Rhythm/type (e.g., jig)
+- When the loop detects one of these keys it stores the information in current_tune
+
+#### Detecting a new tune
+- When a newe x appears
+- The previous tune in current_tunes is then saved in the list tunes
+- The next current_tune dictionary is created to take in the information of the next tune
+
+#### Storing the Body
+- Any other line that does not contain the main keys (x,t,k,r) is considered the body, which is the remainder of the information of the tunes and stored in "body"
+- Finally when the loop ends and the last tune is added to the list "tunes" the parsed list is then returned 
 
 
 
@@ -94,14 +104,28 @@ def process_file(file):
     return tunes #returns to #1
 ```
 
-3. I create a table if it doesnt already exist with the columns
-- book_number INTEGER 
-- title TEXT, 
-- key TEXT, 
-- type TEXT, 
-- body TEXT
+3. 
+#### Function inserting()
+- Takes the parsed data and stores them into the rows of the sql database. We can later retrieve this information for searching and analysis
 
-The data previously sstored in "tunes" is then used in a for loop to insert the data into each column
+#### Establishing a DB connection
+- The function creates a sql db called tunes2.db
+- Cursor is used to execute sql commands
+
+#### Table
+- We dont know if a table exists before hand so the function makes sure to specify that "IF NOT EXIST" and creates the table with the rows
+- id — auto-incrementing primary key
+- book_number — identifies the source book the tune came from
+- title — tune title
+- key — key signature
+- type — tune type (e.g. jig, reel)
+- body — remaining ABC notation
+
+#### Inserting
+- The function loops through the newly parsed tunes and inserts them into the table, it uses .get to retrieve the dictionary values
+
+#### Commiting the changes to the Database
+- The database changes are saved with commit() then the connection is closed
 
 ```Python
 def inserting(book_number,tunes):
