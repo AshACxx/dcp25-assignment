@@ -29,16 +29,20 @@ First we import our libraries
 if the already exists, it gets dropped
 
 
-2. We parse through the data, i created a list called "tunes" and a dictionary called "current_tunes" that will be used to store each tune
-	i open the the file and read it, using .readlines() and store it in a variable called lines, lines is then used within the for loop to iterate through the tunes contents.
-	I filter out 4 main keys 
-	- X: tune number
-	- T: title
-	- K: key
-	- R: type (jig)
-The loop firstly checks if the line begins with x, if not it saves the current tune its working on and stores it into the list "tunes".
-The loop also removes any whitespaces and trailing lines from the keys.
-Body is used to take the remainder of the information within each tune and store it in "body" after the main keys are finished being parsed
+2. #### Reading the File
+- File is opened, all the inesa are read using readlines()
+
+#### Parsing tunes 
+- As the for loop iterates, the inforation is being tracked using current_tune via dictionary and all completed tunes are stored inside a list called "tunes"
+
+#### Identifying tune informatiom
+- X: Tune number
+- T: Title
+- K: Key signature
+- R: Rhythm/type (e.g., jig)
+
+
+
 ```Python
 def process_file(file):
     
