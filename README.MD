@@ -222,15 +222,17 @@ print(book3_t[["title","type"]].head())
 - Created 2 graphs for further data analysis
 - Graph 1: Shows number of tunes per book
 - Graph 2; Shows the distribution of tune type and counts them
+- value_counts() returns every row 
+
 ```Python
-book_counts = df["book_number"].value_counts().sort_index()
+book_counts = df["book_number"].value_counts()
 
 plt.figure(figsize=(8,5))
 plt.bar(book_counts.index, book_counts.values)
 plt.xlabel("Book Number")
 plt.ylabel("Number of Tunes")
 plt.title("Tunes per Book")
-plt.tight_layout()
+
 plt.show()
 
 
@@ -240,10 +242,59 @@ plt.bar(type_counts.index, type_counts.values)
 plt.xlabel("Tune Type")
 plt.ylabel("Count")
 plt.title("Distribution of Tune Types")
-plt.xticks(rotation=45)
-plt.tight_layout()
+plt.xticks(rotation=90)
+
 plt.show()
 
+```
+
+#### Tkinter
+- Creating the tkinter function
+- my_w = tk.Tk() creates the main window for the GUI
+- my_w.geometry is used to alter the window size
+
+```Python
+#tkinter menu
+def launch_gui(df):
+    
+    #main window
+    my_w = tk.Tk()
+    my_w.title("ABC Tune Database")
+    
+    my_w.geometry("750x600")
+    #adding a text and scroll widget to the main box (my_W) -> acts as the root
+    output = scrolledtext.ScrolledText(my_w, width=90, height=25)
+    #pady is padding for the main window, moves it away from the top of the titlebar
+    output.pack(pady=10)
+```
+
+#### Tkinter output
+- Function that displays the data in the primary window
+- output.delete(1.0, tk.END) clears all text in the box from start to the end 
+
+```Python
+    def show(df):
+        #clears text box (1.0 is line1 char 0 tk.END _> to the end)
+        output.delete(1.0, tk.END)
+        
+        if df.empty:
+            #if the df has no rows/ data it displays no (#note for future tk.END is used to place no results at the end of widget)
+            output.insert(tk.END, "No results found.\n")
+            #returning no result to df
+            return
+        
+        for i, row in df.iterrows():
+            #outputting (printing) the rows in the main window
+            output.insert(tk.END, f"Title: {row['title']}\n")
+            
+            output.insert(tk.END, f"Type: {row['type']}\n")
+            
+            output.insert(tk.END, f"Key: {row['key']}\n")
+            
+            output.insert(tk.END, f"Book: {row['book_number']}\n")
+            
+            #adding lines to seperate 
+            output.insert(tk.END, "-"*50 + "\n")
 ```
 
 

@@ -13,7 +13,7 @@ def my_sql_database():
 
     cursor = conn.cursor()
 
-    cursor.execute("DROP TABLE IF EXISTS tunes2")
+    cursor.execute("DELETE TABLE IF EXISTS tunes2")
     conn.commit()
     conn.close()
     '''
@@ -54,7 +54,7 @@ def process_file(file):
                 tunes.append(current_tune)
                 
             #new tune present 
-            current_tune = {"X": line[2:].strip(),"body":""}
+            current_tune = {"X": line[2:].strip()}
             print(line)  
                 
         elif line.startswith("T:"):
@@ -150,8 +150,7 @@ def get_tunes_by_book(df, book_number):
 #displays all the tunes from 3400 onwards as this is book2 (abc files)
 
 def get_tune(df, tune_type):
-    df_2 = df[df["type"].str.lower() == tune_type.lower()]
-    return df_2
+    df_2 = df[df["type"].str.lower() == tune_type.lower()] # NOTE FOR THE FUTURE, case = False wouldnt work fix later
 
 #printing the title and key
 book2_t = get_tunes_by_book(df, 2)
@@ -172,14 +171,15 @@ print(book3_t[["title","type"]].head())
 
 
 #count tunes per book
-book_counts = df["book_number"].value_counts().sort_index()
+book_counts = df["book_number"].value_counts()
 
 plt.figure(figsize=(8,5))
+#creating the bar plots index = x acis, values = y
 plt.bar(book_counts.index, book_counts.values)
 plt.xlabel("Book Number")
 plt.ylabel("Number of Tunes")
 plt.title("Tunes per Book")
-plt.tight_layout()
+
 plt.show()
 
 
@@ -189,8 +189,7 @@ plt.bar(type_counts.index, type_counts.values)
 plt.xlabel("Tune Type")
 plt.ylabel("Count")
 plt.title("Distribution of Tune Types")
-plt.xticks(rotation=45)
-plt.tight_layout()
+plt.xticks(rotation=90)
 plt.show()
 
 
@@ -221,6 +220,7 @@ def launch_gui(df):
         
         for i, row in df.iterrows():
             #outputting (printing) the rows in the main window
+            #insert -> tk.END = appending the text to the end of the text box
             output.insert(tk.END, f"Title: {row['title']}\n")
             
             output.insert(tk.END, f"Type: {row['type']}\n")
@@ -239,6 +239,7 @@ def launch_gui(df):
     
     tk.Label (my_w, text="Search by Book Number:", font=("Arial",10)).pack()
     
+    #entry creates an input box 
     book_entry = tk.Entry(my_w)
     book_entry.pack()
     
