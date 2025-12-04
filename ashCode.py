@@ -54,7 +54,8 @@ def process_file(file):
                 tunes.append(current_tune)
                 
             #new tune present 
-            current_tune = {"X": line[2:].strip()}
+            #body is used to append remainder of lines into body later 
+            current_tune = {"X": line[2:].strip(),"body":""}
             print(line)  
                 
         elif line.startswith("T:"):
@@ -150,7 +151,8 @@ def get_tunes_by_book(df, book_number):
 #displays all the tunes from 3400 onwards as this is book2 (abc files)
 
 def get_tune(df, tune_type):
-    df_2 = df[df["type"].str.lower() == tune_type.lower()] # NOTE FOR THE FUTURE, case = False wouldnt work fix later
+    df_2 = df[df["type"].str.lower() == tune_type.lower()] # FOR THE FUTURE, case = False wouldnt work fix later
+    return df_2
 
 #printing the title and key
 book2_t = get_tunes_by_book(df, 2)
@@ -159,7 +161,7 @@ print(book2_t[["title","key"]].head())
 
 #function to return the title of a song
 def search(df, search_terms):
-    df_3 = df[df["type"].str.contains(search_terms, case = False)]
+    df_3 = df[df["title"].str.contains(search_terms, case = False)]
     return df_3
 
 #returning rthe title andd jig of a song
