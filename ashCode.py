@@ -239,7 +239,7 @@ def launch_gui(df):
     #.pack is used to horiztonally or vertically place the widgets after another 
     #.pack() lets me stack the name and asearch bar on top of eachother
     
-    tk.Label (my_w, text="Search by Book Number:", font=("Arial",10)).pack()
+    tk.Label(my_w, text="Search by Book Number:", font=("Arial",10)).pack()
     
     #entry creates an input box 
     book_entry = tk.Entry(my_w)

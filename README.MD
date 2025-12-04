@@ -271,7 +271,8 @@ def launch_gui(df):
 #### Tkinter output
 - Function that displays the data in the primary window
 - output.delete(1.0, tk.END) clears all text in the box from start to the end 
-
+- if the dataframe is empty/holds no values it outputs No results found
+- loop designed to iterate through ever row and insert the string and row value at the end of the widget
 ```Python
     def show(df):
         #clears text box (1.0 is line1 char 0 tk.END _> to the end)
@@ -295,6 +296,46 @@ def launch_gui(df):
             
             #adding lines to seperate 
             output.insert(tk.END, "-"*50 + "\n")
+```
+
+#### Tkinter input/search
+- Tk.Label is used to create a heading (like header is html)
+- .pack() stacks this on top of the next widget
+- book_entry is variable that stores tk.Entry which is a text box, the window is then passed into it as an argument to specify it being in that window
+- tk.Button creates a search button that uses a temporary function (lambda) and runs the show function with the specific pandas function in it as an argument
+- book_entry is used to retireve the input of the user -> df holds the data on what book numbers are in the data set
+- get_tunes_by_book checks if teh booknumbers in the dataframe match the input of the user -> this is then inserted as a parameter into show function
+- the show function then inseerts the data into the window according to the specified book number
+
+```Python
+    #search by book number
+    #.pack is used to horiztonally or vertically place the widgets after another 
+    #.pack() lets me stack the name and asearch bar on top of eachother
+    
+    tk.Label(my_w, text="Search by Book Number:", font=("Arial",10)).pack()
+    
+    #entry creates an input box 
+    book_entry = tk.Entry(my_w)
+    book_entry.pack()
+    
+    #creating a button, using lambda to create a mini function name (tkinter cant take calls) inserting the dataframe and using .get() to return the specified key
+    #FOR FUTURE: user types into entry > when u click the button mini funcyion runs > returns number > get_tunes_by_book filters dataframe to book (1)or(2)
+    
+    tk.Button(my_w, text="Search", command=lambda:show(get_tunes_by_book(df, int(book_entry.get())))).pack()
+
+    #search by tune type
+    tk.Label(my_w, text="\nSearch by Type:").pack()
+    type_entry = tk.Entry(my_w)
+    
+    type_entry.pack()
+    tk.Button(my_w, text="Search", command=lambda: show(get_tune(df, type_entry.get()))).pack()
+
+    # Search by title
+    tk.Label(my_w, text="\nSearch by Title:").pack()
+    title_entry = tk.Entry(my_w)
+    title_entry.pack()
+    tk.Button(my_w, text="Search", command=lambda: show(search(df, title_entry.get()))).pack()
+
 ```
 
 
