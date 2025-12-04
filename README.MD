@@ -347,12 +347,12 @@ def launch_gui(df):
 
 
 # References
-sqllite tutorial #1 [hyperlink](https://youtu.be/girsuXz0yA8?si=Ymqbg4gZFHoALtOB)
+* sqllite tutorial #1 [hyperlink](https://youtu.be/girsuXz0yA8?si=Ymqbg4gZFHoALtOB)
 * tkinter tutorial #2 [hyperlink](https://youtu.be/w5JhFN0CwOE?si=ioK0tFfDjpQGgBNd)
 * tkinter tutorial #3 [hyperlink](https://youtu.be/YXPyB4XeYLA?si=zruo8y0pNl_6rcrF)
 * Codecademy #4 [hyperlink](https://www.codecademy.com)
 * Lab5 DCP (parsing) 
-parsing tutorial #5 [hyperlink](https://youtu.be/1uA-pLITer0?si=g6Bh0RFy5-N8PrQO)
+* parsing tutorial #5 [hyperlink](https://youtu.be/1uA-pLITer0?si=g6Bh0RFy5-N8PrQO)
 # What I am most proud of in the assignment
 
 The thing im most proud of in this assignment are the parsing and pandas parts. For the parsing of the contents i looked back on old python files and labs i had used before, on top of this i used the skills i have been getting frok codecademys Python 2 course and pandas course available on the website. Im proud that i could apply my knowledge and quickly get past these parts with little use of ai assistance or youtube tutorials.
