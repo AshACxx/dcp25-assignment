@@ -148,26 +148,20 @@ def get_tunes_by_book(df, book_number):
     df = df[df["book_number"] ==  book_number]
     return df
 
-#displays all the tunes from 3400 onwards as this is book2 (abc files)
-
-def get_tune(df, tune_type):
-    df_2 = df[df["type"].str.lower() == tune_type.lower()] # FOR THE FUTURE, case = False wouldnt work fix later
-    return df_2
-
 #printing the title and key
 book2_t = get_tunes_by_book(df, 2)
 print(book2_t[["title","key"]].head())
 
+#displays all the tunes from 3400 onwards as this is book2 (abc files)
 
-#function to return the title of a song
-def search(df, search_terms):
-    df_3 = df[df["title"].str.contains(search_terms, case = False)]
-    return df_3
+def get_tune(df, tune_type):
+    """Get the tune types"""
+    df_2 = df[df["type"].str.lower() == tune_type.lower()] # FOR THE FUTURE, case = False wouldnt work fix later
+    return df_2
 
 #returning rthe title andd jig of a song
-book3_t = search(df, "Single jig")
+book3_t = get_tune(df, "Single jig")
 print(book3_t[["title","type"]].head())
-
 
 
 

@@ -197,21 +197,23 @@ def get_tunes_by_book(df, book_number):
 
 #displays all the tunes from 3400 onwards as this is book2 (abc files)
 
-def get_tune(df, tune_type):
-    df_2 = df[df["type"].str.lower() == tune_type.lower()]
-    return df_2
+def get_tunes_by_book(df, book_number):
+    """Get all tunes from a specific book"""
+    df = df[df["book_number"] ==  book_number]
+    return df
 
 #printing the title and key
 book2_t = get_tunes_by_book(df, 2)
 print(book2_t[["title","key"]].head())
 
+#displays all the tunes from 3400 onwards as this is book2 (abc files)
 
-#function to return the title of a song
-def search(df, search_terms):
-    df_3 = df[df["title"].str.contains(search_terms, case = False)]
-    return df_3
+def get_tune(df, tune_type):
+    """Get the tune types"""
+    df_2 = df[df["type"].str.lower() == tune_type.lower()] # FOR THE FUTURE, case = False wouldnt work fix later
+    return df_2
+
 #returning rthe title andd jig of a song
-
 book3_t = get_tune(df, "Single jig")
 print(book3_t[["title","type"]].head())
 ```
@@ -355,79 +357,9 @@ def launch_gui(df):
 * parsing tutorial #5 [hyperlink](https://youtu.be/1uA-pLITer0?si=g6Bh0RFy5-N8PrQO)
 # What I am most proud of in the assignment
 
-The thing im most proud of in this assignment are the parsing and pandas parts. For the parsing of the contents i looked back on old python files and labs i had used before, on top of this i used the skills i have been getting frok codecademys Python 2 course and pandas course available on the website. Im proud that i could apply my knowledge and quickly get past these parts with little use of ai assistance or youtube tutorials.
+The thing im most proud of in this assignment are the parsing and pandas parts. For the parsing of the contents i looked back on old python files and labs i had used before, on top of this i used the skills i have been getting from codecademys Python 2 course and pandas course available on the website. Im proud that i could apply my knowledge and quickly get past these parts with little use of ai assistance, only to use it for finding errors, bad syntax or reccomendation. Another thing i am proud about is the developement of my tkinter gui. At first it was overwhelming but I was able to get a grasp on it quickly with the help of notes and youtube videos. Some of the commands look complicated but once you understand what they mean its easy to implement it into your code.
 
 # What I learned
 
-What i learned in this assignment is the connection of a database in which i created the table and columns using python. At first i struggled with this part alot as i struggled with this in php, howeever after emailing my lecturer i was able to find the resources available to connect my file data to a sql table.
+What i learned in this assignment is the connection of a database in which i created the table and columns using python. At first i struggled with this part alot as i struggled with this in php. However, after emailing my lecturer i was able to find the resources available to connect my file data to a sql table. I was not familiar with tkinter in the beggining but due to this assignment I was able to improve at my abilities in creating a GUI through the use of lecture notes, our previous lab and the use of youtube tutorials. 
 
-## Below is how to use Markdown. You can delete this:
-
-## This is how to markdown text:
-
-This is *emphasis*
-
-This is a bulleted list
-
-- Item
-- Item
-
-This is a numbered list
-
-1. Item
-1. Item
-
-This is a [hyperlink](http://bryanduggan.org)
-
-# Headings
-## Headings
-#### Headings
-##### Headings
-
-This is code:
-
-```Java
-public void render()
-{
-	ui.noFill();
-	ui.stroke(255);
-	ui.rect(x, y, width, height);
-	ui.textAlign(PApplet.CENTER, PApplet.CENTER);
-	ui.text(text, x + width * 0.5f, y + height * 0.5f);
-}
-```
-
-So is this without specifying the language:
-
-```
-public void render()
-{
-	ui.noFill();
-	ui.stroke(255);
-	ui.rect(x, y, width, height);
-	ui.textAlign(PApplet.CENTER, PApplet.CENTER);
-	ui.text(text, x + width * 0.5f, y + height * 0.5f);
-}
-```
-
-This is an image using a relative URL:
-
-![An image](images/p8.png)
-
-This is an image using an absolute URL:
-
-![A different image](https://bryanduggandotorg.files.wordpress.com/2019/02/infinite-forms-00045.png?w=595&h=&zoom=2)
-
-This is a youtube video:
-
-[![YouTube](http://img.youtube.com/vi/J2kHSSFA4NU/0.jpg)](https://www.youtube.com/watch?v=J2kHSSFA4NU)
-
-This is a table:
-
-| Heading 1 | Heading 2 |
-|-----------|-----------|
-|Some stuff | Some more stuff in this column |
-|Some stuff | Some more stuff in this column |
-|Some stuff | Some more stuff in this column |
-
-|Some stuff | Some more stuff in this column |
