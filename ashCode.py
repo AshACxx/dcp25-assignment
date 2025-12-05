@@ -166,6 +166,16 @@ print(book3_t[["title","type"]].head())
 
 
 
+def search(df, search_terms):
+    '''function to return the title of a song (used for tkinter)'''
+    df_3 = df[df["title"].str.contains(search_terms, case = False)]
+    return df_3
+
+
+
+
+
+
 #count tunes per book
 book_counts = df["book_number"].value_counts()
 
